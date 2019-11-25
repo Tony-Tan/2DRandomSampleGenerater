@@ -14,6 +14,47 @@ For example the 1.png is stored in the same fold with script:
 and then:
 ![](./samplesScript.gif)
 
+after these steps, we get the result file in 'csv' form
+![](./csv_fold.png)
+
+and in the file, the data is organized as:
+![](./csv_file.png)
+
+using the following python code
+```python
+import csv
+import matplotlib.pyplot as plt
+file_csv = open('./1.csv')
+reader = csv.reader(file_csv)
+result = {}
+for item in reader:
+    # ignore first row
+    if reader.line_num == 1:
+        continue
+    if item[2] in result:
+        result[item[2]].append([item[0],item[1]])
+    else:
+        result[item[2]] = []
+file_csv.close()
+print(result)
+plt.scatter([ int(i[0]) for i in result['1']],[ int(i[1]) for i in result['1']],c = 'r',marker = 'o')
+plt.scatter([ int(i[0]) for i in result['2']],[ int(i[1]) for i in result['2']],c = 'b',marker = 'x')
+plt.show()
+```
+we can get:
+![](./Figure_1.png)
+
+## Warning!
+```python
+import cv2
+import numpy as np
+import copy
+import random
+import csv
+from sty import  fg
+```
+These libaries are needed.
+
 This is a tool for generating 2-D random samples for different class, what users should do is:
 1. draw class in picture with different colors
 2. each class should be represented by a closed sharp(line width should less than 3 pixels))

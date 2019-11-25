@@ -88,6 +88,7 @@ for loop in range(100):
     if image is None:
         print('Samples map image have not been found!')
         continue
+    height, width, _ = np.shape(image)
     color_dic = colors_kinds_detect(image)
     print(str(len(color_dic.keys()))+ ' kind(s) of color had been detected:')
     i = 1
@@ -102,7 +103,7 @@ for loop in range(100):
         sample_num = input('How many samples in this class do you want: ')
         samples = generate_samples(available_sample_points,int(sample_num))
         for sample in samples:
-            csv_write.writerow([sample[0],sample[1],i])
+            csv_write.writerow([sample[1],height-sample[0],i])
         i += 1
     samples_file.close()
 print('Good luck')
